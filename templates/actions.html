@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мирные акции</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Мирные акции</h1>
+    <div class="subhead">Мы действуем здесь и сейчас</div>
+
+    <div id="actions-list">
+        <!-- Сюда будут загружены карточки акций -->
+        <p style="color: #6a625b;">Загрузка...</p>
+    </div>
+
+    <!-- Форма для добавления новой акции -->
+    <div class="add-action-form">
+        <h3>➕ Предложить новую акцию</h3>
+        <form id="action-form">
+            <input type="text" id="action-title" placeholder="Название акции" required>
+            <textarea id="action-description" placeholder="Описание (что, где, во сколько)" rows="3" required></textarea>
+            <input type="date" id="action-date" required>
+            <input type="text" id="action-location" placeholder="Место проведения" required>
+            <select id="action-status">
+                <option value="planned">Планируется</option>
+                <option value="ongoing">Проходит сейчас</option>
+                <option value="completed">Завершена</option>
+            </select>
+            <button type="submit">➕ Добавить акцию</button>
+        </form>
+        <p style="font-size: 0.85rem; color: #5a4d40; margin-top: 0.5rem;">
+            * Все поля обязательны. Акции появляются после одобрения модератором (пока автоматически).
+        </p>
+    </div>
+
+    <!-- Модальное окно редактирования -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2>Редактировать акцию</h2>
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+                <input type="text" id="edit-title" placeholder="Название" required>
+                <textarea id="edit-description" placeholder="Описание" rows="3" required></textarea>
+                <input type="date" id="edit-date" required>
+                <input type="text" id="edit-location" placeholder="Место" required>
+                <select id="edit-status">
+                    <option value="planned">Планируется</option>
+                    <option value="ongoing">Проходит сейчас</option>
+                    <option value="completed">Завершена</option>
+                </select>
+
+                <div class="image-upload-area">
+                    <label for="edit-image-input">📷 Добавить изображение</label>
+                    <input type="file" id="edit-image-input" accept="image/*">
+                </div>
+
+                <div id="edit-images-container" class="existing-images">
+                    <!-- сюда загрузятся существующие изображения -->
+                </div>
+
+                <button type="submit">💾 Сохранить изменения</button>
+            </form>
+        </div>
+    </div>
+
+    <p style="margin-top: 2rem;">
+        <a href="/" class="btn-back">← На главную</a>
+    </p>
+    <div class="footer-note">
+        Прямое действие — основа свободы.
+    </div>
+</div>
+
+<script>
+    // ---- Загрузка акций ----
+    async function loadActions() {
+        try {
+            const response = await fetch('/api/actions');
+            const actions = await response.json();
+            const container = document.getElementById('actions-list');
+
+            if (actions.length === 0) {
+                container.innerHTML = `<p style="color: #6a625b;">Пока нет запланированных акций. Будь первым!</p>`;
+                return;
+            }
+
+            let html = '';
+            actions.forEach(action => {
+                const statusClass = `status-${action.status}`;
+                const statusText = {
+                    planned: 'Планируется',
+                    ongoing: 'Идёт сейчас',
+                    completed: 'Завершена'
+                }[action.status] || action.status;
+
+                // формируем блок с изображениями
+                let imagesHtml = '';
+                if (action.images && action.images.length) {
+                    imagesHtml = action.images.map(url => `<img src="${url}" alt="img">`).join('');
+                }
+
+                html += `
+                    <div class="action-card" data-id="${action.id}">
+                        <button class="btn-edit" data-id="${action.id}">✏️ Редактировать</button>
+                        <div class="action-title">${escapeHtml(action.title)}</div>
+                        <div class="action-meta">
+                            <span>📅 ${action.date}</span>
+                            <span>📍 ${escapeHtml(action.location)}</span>
+                            <span><span class="action-status ${statusClass}">${statusText}</span></span>
+                        </div>
+                        <p style="margin-top: 0.5rem; color: #2c2c2c;">${escapeHtml(action.description)}</p>
+                        ${imagesHtml ? `<div class="action-images">${imagesHtml}</div>` : ''}
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+            // назначаем обработчики на кнопки редактирования
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    openEditModal(id);
+                });
+            });
+        } catch (error) {
+            document.getElementById('actions-list').innerHTML = `<p style="color: #b33;">Не удалось загрузить акции. Попробуйте позже.</p>`;
+            console.error('Ошибка загрузки:', error);
+        }
+    }
+
+    // ---- Открыть модалку редактирования ----
+    async function openEditModal(actionId) {
+        try {
+            const response = await fetch(`/api/actions/${actionId}`);
+            const action = await response.json();
+            if (!response.ok) throw new Error('Не удалось загрузить данные акции');
+
+            document.getElementById('edit-id').value = action.id;
+            document.getElementById('edit-title').value = action.title;
+            document.getElementById('edit-description').value = action.description || '';
+            document.getElementById('edit-date').value = action.date;
+            document.getElementById('edit-location').value = action.location;
+            document.getElementById('edit-status').value = action.status;
+
+            // заполняем изображения
+            const container = document.getElementById('edit-images-container');
+            container.innerHTML = '';
+            if (action.images && action.images.length) {
+                action.images.forEach(url => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'img-wrapper';
+                    wrapper.innerHTML = `
+                        <img src="${url}" alt="img">
+                        <button class="del-img" data-url="${url}">×</button>
+                    `;
+                    container.appendChild(wrapper);
+                });
+            }
+
+            // назначаем обработчик удаления изображений
+            document.querySelectorAll('#edit-images-container .del-img').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const url = this.dataset.url;
+                    // нужно получить id изображения, для этого делаем дополнительный запрос или храним их в data-атрибутах
+                    // для простоты: удаляем по URL, но в API удаление по id. Поэтому либо добавим скрытые поля с id, либо расширим API.
+                    // Пока просто предупредим, что реализуем позже.
+                    alert('Удаление изображений через интерфейс пока в разработке.\nИспользуйте API DELETE /api/actions/images/{id}');
+                });
+            });
+
+            // загрузка нового изображения
+            document.getElementById('edit-image-input').onchange = async function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    const uploadResp = await fetch(`/api/actions/${actionId}/images`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (uploadResp.ok) {
+                        alert('Изображение добавлено! Обновите страницу для просмотра.');
+                        // можно перезагрузить картинки без перезагрузки, но для простоты — закроем и откроем заново
+                        closeModal();
+                        loadActions();
+                    } else {
+                        alert('Ошибка загрузки изображения');
+                    }
+                } catch (err) {
+                    alert('Ошибка соединения');
+                }
+                // сбросим input
+                e.target.value = '';
+            };
+
+            // показываем модалку
+            document.getElementById('editModal').style.display = 'block';
+        } catch (error) {
+            alert('Ошибка загрузки данных акции');
+        }
+    }
+
+    // ---- Закрыть модалку ----
+    function closeModal() {
+        document.getElementById('editModal').style.display = 'none';
+    }
+
+    document.getElementById('closeModal').addEventListener('click', closeModal);
+    window.addEventListener('click', function(e) {
+        if (e.target === document.getElementById('editModal')) closeModal();
+    });
+
+    // ---- Отправка обновлённых данных ----
+    document.getElementById('edit-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const id = document.getElementById('edit-id').value;
+        const title = document.getElementById('edit-title').value.trim();
+        const description = document.getElementById('edit-description').value.trim();
+        const date = document.getElementById('edit-date').value;
+        const location = document.getElementById('edit-location').value.trim();
+        const status = document.getElementById('edit-status').value;
+
+        const payload = { title, description, date, location, status };
+        try {
+            const response = await fetch(`/api/actions/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (response.ok) {
+                alert('Акция обновлена!');
+                closeModal();
+                loadActions();
+            } else {
+                alert('Ошибка обновления');
+            }
+        } catch (err) {
+            alert('Ошибка соединения');
+        }
+    });
+
+    // ---- Создание новой акции ----
+    document.getElementById('action-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const title = document.getElementById('action-title').value.trim();
+        const description = document.getElementById('action-description').value.trim();
+        const date = document.getElementById('action-date').value;
+        const location = document.getElementById('action-location').value.trim();
+        const status = document.getElementById('action-status').value;
+
+        if (!title || !description || !date || !location) {
+            alert('Заполните все поля');
+            return;
+        }
+
+        const payload = { title, description, date, location, status };
+        try {
+            const response = await fetch('/api/actions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            if (response.ok) {
+                alert('Акция добавлена!');
+                this.reset();
+                loadActions();
+            } else {
+                alert('Ошибка добавления');
+            }
+        } catch (err) {
+            alert('Ошибка соединения');
+        }
+    });
+
+    // ---- Защита от XSS ----
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    // ---- Загрузить акции при открытии ----
+    loadActions();
+</script>
+</body>
+</html>
