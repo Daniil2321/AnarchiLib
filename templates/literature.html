@@ -1,15 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Библиотека анархистской литературы</title>
+    <style>
+        /* Тот же стиль, что и на главной, чтобы сайт был единым */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f2ed;
+            color: #1e1e1e;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #fffcf9;
+            padding: 2.5rem 2.8rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            border-left: 5px solid #2c2c2c;
+            padding-left: 1.2rem;
+            margin-bottom: 0.2rem;
+            color: #1a1a1a;
+        }
+
+        .subhead {
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 0.3rem;
+            margin-bottom: 2rem;
+            padding-left: 1.7rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2.4rem;
+            margin-bottom: 0.8rem;
+            color: #222;
+            border-bottom: 1px solid #e0dcd7;
+            padding-bottom: 0.4rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 1.8rem;
+            margin-bottom: 0.3rem;
+            color: #1f3a5f;
+        }
+
+        .book-entry {
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px dashed #e3ddd6;
+        }
+
+        .book-entry:last-of-type {
+            border-bottom: none;
+        }
+
+        .book-entry p {
+            margin-bottom: 0.4rem;
+            color: #2c2c2c;
+        }
+
+        .book-entry a {
+            color: #1f3a5f;
+            text-decoration: none;
+            border-bottom: 1px dotted #b0a99f;
+            transition: border 0.2s, color 0.2s;
+        }
+
+        .book-entry a:hover {
+            color: #0b1f33;
+            border-bottom: 1px solid #0b1f33;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background: #2c2c2c;
+            color: #f5f2ed !important;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            border-bottom: none !important;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            transition: background 0.2s;
+            margin-top: 1.5rem;
+        }
+
+        .btn-back:hover {
+            background: #111;
+            color: #fff !important;
+        }
+
+        .footer-note {
+            margin-top: 2.2rem;
+            font-size: 0.9rem;
+            color: #6a625b;
+            border-top: 1px solid #e3ddd6;
+            padding-top: 1.5rem;
+            text-align: center;
+        }
+
+        @media (max-width: 550px) {
+            .container {
+                padding: 1.5rem 1.2rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+                padding-left: 0.8rem;
+            }
+            .subhead {
+                padding-left: 1rem;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <a href="https://ru.anarchistlibraries.net/special/index">Библиотека Анархизма</a>
-    <h2>Быстрые ссылки</h2>
-    <ul>
-        <li><a href="https://www.nihilist.li/2014/01/19/stanislav-markelov-krasnaya-kniga-antifa/">Станислав Маркелов - Красная книга антифа</a></li>
-        <li><a href="https://ru.anarchistlibraries.net/library/petr-kropotkin-hleb-i-volya">Пётр Кропоткин - Хлеб и Воля</a></li>
-    </ul>
+<div class="container">
+    <h1>Библиотека</h1>
+    <div class="subhead">Ключевые тексты для понимания анархистской мысли</div>
+
+    <h2>Классики анархизма</h2>
+
+    <div class="book-entry">
+        <h3>Пётр Кропоткин — «Хлеб и воля»</h3>
+        <p>Основной труд анархо-коммунизма. Кропоткин показывает, как общество может быть организовано на принципах взаимопомощи и самоуправления, без государства и частной собственности.</p>
+        <p><a href="https://ru.anarchistlibraries.net/library/petr-kropotkin-hleb-i-volya" target="_blank">Читать на Anarchist Libraries</a></p>
+    </div>
+
+    <div class="book-entry">
+        <h3>Михаил Бакунин — «Государственность и анархия»</h3>
+        <p>Один из программных текстов анархизма, где Бакунин критикует государство как институт угнетения и обосновывает необходимость социальной революции «снизу».</p>
+        <p><a href="https://ru.anarchistlibraries.net/library/mihail-bakunin-gosudarstvennost-i-anarhiya" target="_blank">Читать на Anarchist Libraries</a></p>
+    </div>
+
+    <div class="book-entry">
+        <h3>Эррико Малатеста — «Анархия»</h3>
+        <p>Краткое и доступное введение в анархистские идеи. Отвечает на основные вопросы: что такое анархия, как она будет работать, почему она лучше государства.</p>
+        <p><a href="https://ru.anarchistlibraries.net/library/errico-malatesta-anarchy" target="_blank">Читать на Anarchist Libraries</a></p>
+    </div>
+
+    <div class="book-entry">
+        <h3>Александр Беркман — «Азбука анархизма»</h3>
+        <p>Ясное и последовательное изложение принципов анархизма. Беркман объясняет, как анархисты видят экономику, образование, семью и будущее общества.</p>
+        <p><a href="https://ru.anarchistlibraries.net/library/alexander-berkman-azbuka-anarhizma" target="_blank">Читать на Anarchist Libraries</a></p>
+    </div>
+
+    <h2>Антифашизм и субкультура</h2>
+
+    <div class="book-entry">
+        <h3>Станислав Маркелов — «Красная книга антифа»</h3>
+        <p>Программный текст адвоката и антифашиста, убитого неонацистами в 2009 году. Книга разбирает суть антифашистского движения и его роль в современной России.</p>
+        <p><a href="https://www.nihilist.li/2014/01/19/stanislav-markelov-krasnaya-kniga-antifa/" target="_blank">Читать на Nihilist</a></p>
+    </div>
+
+    <div class="book-entry">
+        <h3>Ильяс Фалькаев, Александр Литой — «Дать пизды!»</h3>
+        <p>Хроника уличных столкновений антифашистов с неонацистами в России и Англии (1984–2003). Книга о том, как скинхеды-антифа (SHARP, RASH) давали отпор бонхедам.</p>
+        <p><a href="https://ru.anarchistlibraries.net/library/ilyas-falkaev-alexander-litoi-dat-pizdy" target="_blank">Читать на Anarchist Libraries</a></p>
+    </div>
+
+    <p style="margin-top: 1.5rem;">
+        <a href="/" class="btn-back">← На главную</a>
+    </p>
+
+    <div class="footer-note">
+        Знание — оружие. Читай, анализируй, действуй.
+    </div>
+</div>
 </body>
 </html>
