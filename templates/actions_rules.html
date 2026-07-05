@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Правила публикаций акций</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* небольшие дополнения под специфику страницы */
+        .rule-item {
+            margin-bottom: 1.2rem;
+        }
+        .rule-item strong {
+            display: block;
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            margin-bottom: 0.2rem;
+        }
+        .rule-item p {
+            margin: 0.2rem 0 0 0;
+            padding-left: 0.5rem;
+            color: #2c2c2c;
+        }
+        .rule-example {
+            font-size: 0.9rem;
+            color: #5a4d40;
+            background: #f4f0eb;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            margin-top: 0.3rem;
+        }
+        .checkbox-area {
+            margin: 2rem 0 1.5rem;
+            padding: 1rem 1.5rem;
+            background: #f4f0eb;
+            border-radius: 10px;
+            border-left: 4px solid #2c2c2c;
+        }
+        .checkbox-area label {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .checkbox-area input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            accent-color: #2c2c2c;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Правила публикаций акций</h1>
+    <div class="subhead">Это наши общие договорённости. Мы соблюдаем их добровольно, потому что уважаем друг друга и общее дело.</div>
+
+    <div class="rule-item">
+        <strong>1. Только мирные акции</strong>
+        <p>На данной площадке мы публикуем только ненасильственные действия: пикеты, сборы, просветительские мероприятия, соседские инициативы, концерты, взаимопомощь.</p>
+        <div class="rule-example">✅ Пикет против повышения цен • ❌ Призывы к погромам</div>
+    </div>
+
+    <div class="rule-item">
+        <strong>2. Без лишнего спама</strong>
+        <p>Публикуйте акции, которые действительно будут полезны сообществу. Не дублируйте одну и ту же акцию несколько раз.</p>
+        <div class="rule-example">Одна акция = одно событие. Если изменилось место — обновите старую запись.</div>
+    </div>
+
+    <div class="rule-item">
+        <strong>3. Чёткая информация</strong>
+        <p>Указывайте реальное время, место, контакты организаторов. Если акция отменяется — сразу удаляйте или обновляйте статус.</p>
+        <div class="rule-example">📅 Дата • 📍 Место • 👤 Контакт для связи</div>
+    </div>
+
+    <div class="rule-item">
+        <strong>4. Уважение к участникам</strong>
+        <p>В описании избегайте оскорблений, унижений и дискриминации. Мы все равны.</p>
+        <div class="rule-example">Мы обсуждаем действия, а не людей.</div>
+    </div>
+
+    <div class="rule-item">
+        <strong>5. Фото и видео</strong>
+        <p>Публикуйте только те снимки, где участники согласны на съёмку. Если на фото есть лица — лучше размывать их.</p>
+        <div class="rule-example">Защита личных данных — залог нашей безопасности.</div>
+    </div>
+
+    <div class="checkbox-area">
+        <label>
+            <input type="checkbox" id="agreeCheckbox">
+            Я ознакомлен(а) с правилами и согласен(на) их соблюдать
+        </label>
+    </div>
+
+    <p style="margin-top: 1.5rem;">
+        <a href="/actions" class="btn-back">← Вернуться к акциям</a>
+    </p>
+    <div class="footer-note">
+        Правила — это не ограничение, а забота друг о друге.
+    </div>
+</div>
+
+<!-- простая логика для чекбокса (демонстрация) -->
+<script>
+    document.getElementById('agreeCheckbox').addEventListener('change', function() {
+        if (this.checked) {
+            // можно сохранить согласие в localStorage или показать сообщение
+            console.log('Пользователь согласился с правилами');
+        }
+    });
+</script>
+</body>
+</html>

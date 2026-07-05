@@ -74,6 +74,14 @@ class ImageResponse(BaseModel):
 async def actions(request: Request):
     return templates.TemplateResponse(name='actions.html', request=request)
 
+@app.get('/actions/rules')
+async def actions(request: Request):
+    return templates.TemplateResponse(name='actions_rules.html', request=request)
+
+@app.get('/actions/examples')
+async def actions(request: Request):
+    return templates.TemplateResponse(name='actions_examples.html', request=request)
+
 @app.get("/api/actions", response_model=List[ActionResponse])
 def get_actions(db: Session = Depends(get_db)):
     """Получить все акции (с изображениями)"""
