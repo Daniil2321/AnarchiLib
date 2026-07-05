@@ -9,7 +9,7 @@ from fastapi.templating import Jinja2Templates
 app = FastAPI(name='AnarchoLib')
 
 
-# app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates('templates')
 
 @app.get('/')
