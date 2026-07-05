@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Быстрые вопросы и ответы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f2ed;
+            color: #1e1e1e;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #fffcf9;
+            padding: 2.5rem 2.8rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            border-left: 5px solid #2c2c2c;
+            padding-left: 1.2rem;
+            margin-bottom: 0.2rem;
+            color: #1a1a1a;
+        }
+
+        .subhead {
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 0.3rem;
+            margin-bottom: 2rem;
+            padding-left: 1.7rem;
+        }
+
+        .faq-item {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #e3ddd6;
+            padding-bottom: 1.5rem;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .faq-question {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-question::before {
+            content: "❓";
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .faq-answer {
+            font-size: 1rem;
+            color: #2c2c2c;
+            padding-left: 1.8rem;
+        }
+
+        .faq-answer a {
+            color: #1f3a5f;
+            text-decoration: none;
+            border-bottom: 1px dotted #b0a99f;
+            transition: border 0.2s, color 0.2s;
+        }
+
+        .faq-answer a:hover {
+            color: #0b1f33;
+            border-bottom: 1px solid #0b1f33;
+        }
+
+        .btn-back {
+            display: inline-block;
+            background: #2c2c2c;
+            color: #f5f2ed !important;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            border-bottom: none !important;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            transition: background 0.2s;
+            margin-top: 1.5rem;
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            background: #111;
+            color: #fff !important;
+        }
+
+        .footer-note {
+            margin-top: 2.2rem;
+            font-size: 0.9rem;
+            color: #6a625b;
+            border-top: 1px solid #e3ddd6;
+            padding-top: 1.5rem;
+            text-align: center;
+        }
+
+        @media (max-width: 550px) {
+            .container {
+                padding: 1.5rem 1.2rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+                padding-left: 0.8rem;
+            }
+            .subhead {
+                padding-left: 1rem;
+                font-size: 1rem;
+            }
+            .faq-question {
+                font-size: 1.1rem;
+            }
+            .faq-answer {
+                padding-left: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Быстрые вопросы и ответы</h1>
+    <div class="subhead">Коротко о самом важном. Развеиваем мифы и отвечаем на сомнения.</div>
+
+    <div class="faq-item">
+        <div class="faq-question">Анархия — это хаос?</div>
+        <div class="faq-answer">
+            Нет. Анархия — это порядок без власти. Как говорил Прудон: <em>«Свобода — мать порядка»</em>. Вместо принуждения сверху — добровольные договорённости и самоуправление снизу вверх. Хаос возникает, когда рушится государство, но не строится альтернатива. Анархия — это как раз создание альтернативы.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Кто будет строить дороги и больницы?</div>
+        <div class="faq-answer">
+            Те, кто в них нуждается. Коммуны и синдикаты (производственные союзы) самостоятельно договариваются о строительстве и обслуживании инфраструктуры. Это не «кто-то сверху» решит, а люди на местах объединяются для общего дела. Принцип: <strong>решение принимается теми, кого оно касается</strong>.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Как будет распределяться еда и ресурсы?</div>
+        <div class="faq-answer">
+            На первых этапах — через добровольный обмен между коммунами, позже — по принципу <strong>«от каждого по способностям, каждому по потребностям»</strong>. Без денег, без спекуляций. Общественные склады и прозрачный учёт помогут избежать дефицита, пока не наступит изобилие.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Что делать с преступниками?</div>
+        <div class="faq-answer">
+            Изоляция вместо тюрем. Если человек нарушает договорённости и угрожает другим, его временно изолируют, но с гуманными условиями. Главное — не наказание, а защита общества и возможность вернуться после исправления. Смертная казнь отрицается.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Анархизм и демократия — одно и то же?</div>
+        <div class="faq-answer">
+            Нет. Демократия — это власть большинства (тоже иерархия). Анархизм — это отказ от любой власти над личностью. Решения принимаются консенсусом или арбитражем, а не простым большинством. Никто не имеет права навязывать свою волю даже «по праву большинства».
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Как защититься от внешних врагов?</div>
+        <div class="faq-answer">
+            Добровольные ополчения и сети солидарности. Вместо регулярной армии — народное ополчение, где командиры выбираются и могут быть отозваны. Главная стратегия — децентрализация: врагу не с кем воевать, если нет единого центра, который можно захватить.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">А кто будет работать в опасных или сложных профессиях?</div>
+        <div class="faq-answer">
+            Те, кому это интересно. Социальное признание, уважение и освобождение от рутины — сильные стимулы. Вместо денег — репутация и доступ к редким благам. Общество позаботится о безопасности и условиях труда.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Анархизм совместим с религией?</div>
+        <div class="faq-answer">
+            Анархизм — светское движение, но уважает свободу совести. Главное, чтобы религия не использовалась как инструмент власти. В анархии каждый может верить или не верить, но никто не имеет права навязывать свои убеждения другим.
+        </div>
+    </div>
+
+    <p style="margin-top: 1.5rem;">
+        <a href="/" class="btn-back">← На главную</a>
+    </p>
+
+    <div class="footer-note">
+        Есть ещё вопросы? Пиши, обсуждаем. <br>
+        Анархия — это не догма, а поиск лучших решений.
+    </div>
+</div>
+</body>
+</html>

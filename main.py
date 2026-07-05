@@ -20,3 +20,9 @@ async def root(request: Request):
 @app.get('/literature')
 async def literature(request: Request):
     return templates.TemplateResponse(name='literature.html', request=request)
+
+
+@app.get('/faq')
+async def faq(request: Request):
+    return templates.TemplateResponse(name='faq.html', request=request)
+
