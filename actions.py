@@ -1,6 +1,7 @@
-from fastapi import FastAPI, HTTPException, Depends, APIRouter
+from fastapi import FastAPI, HTTPException, Depends, APIRouter, File, UploadFile
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
+from fastapi.requests import Request
 from typing import List, Optional
 import datetime
 from fastapi.responses import FileResponse
@@ -9,11 +10,20 @@ from db.database import (
     engine, SessionLocal, Action as DBAction, ActionImage as DBImage,
     create_tables
 )
+import os
+import shutil
+import uuid
+from fastapi.templating import Jinja2Templates
+
+
+UPLOAD_DIR = "static/uploads"
 
 app = APIRouter()
 
 # Монтирование статики (если ещё не сделано)
-app.mount("/static", StaticFiles(directory="static"), name="static")
+static_dir = os.path.join(os.path.dirname(__file__), "static")
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
+templates = Jinja2Templates(directory='templates')
 
 @app.on_event("startup")
 def startup():
@@ -48,7 +58,7 @@ class ActionUpdate(BaseModel):
 
 class ActionResponse(ActionBase):
     id: int
-    created_at: datetime
+    created_at: datetime.datetime
     images: List[str] = []   # список URL изображений
 
     class Config:
@@ -60,6 +70,10 @@ class ImageResponse(BaseModel):
 
 
 # ----- Эндпоинты -----
+@app.get('/actions')
+async def actions(request: Request):
+    return templates.TemplateResponse(name='actions.html', request=request)
+
 @app.get("/api/actions", response_model=List[ActionResponse])
 def get_actions(db: Session = Depends(get_db)):
     """Получить все акции (с изображениями)"""
@@ -106,7 +120,7 @@ def create_action(action: ActionCreate, db: Session = Depends(get_db)):
         date=action.date,
         location=action.location,
         status=action.status,
-        created_at=datetime.utcnow()
+        created_at=datetime.datetime.now()
     )
     db.add(new_action)
     db.commit()

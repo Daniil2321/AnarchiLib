@@ -100,6 +100,7 @@
                 // формируем блок с изображениями
                 let imagesHtml = '';
                 if (action.images && action.images.length) {
+                    console.log(action.images);
                     imagesHtml = action.images.map(url => `<img src="${url}" alt="img">`).join('');
                 }
 
